@@ -1,0 +1,52 @@
+@function equals($a, $b) {
+  $equals: $a == $b;
+
+  // Necessary because 5 == 5% is true
+  @if type-of($a) == 'number' and type-of($b) == 'number' {
+    @if unit($a) != unit($b) {
+      $equals: false;
+    }
+  }
+
+  @return $equals;
+}
+
+// Changes how strings (add quotes), lists (add parentheses), and null (not displayed otherwise) are displayed
+// @author Matthias Totschnig
+// @param {Any} $list — a list of elements
+// @return {String} — a beautified representation of the elements
+@function beautify($element) {
+  @if $element == null { @return 'null'; }
+
+  $type: type-of($element);
+
+  @if $type == 'string' { @return '\'#{$element}\''; } 
+
+  @if $type == 'list' or $type == 'map' or $type == 'arglist' {
+    $result: '';
+    @if length($element) != 0 {
+      $separator: if($type == 'arglist', ', ', ' ');
+      @for $i from 1 through length($element) {
+        $item: nth($element, $i);
+        $is-last: $i == length($element);
+        @if $type == 'map' { $item: beautify-map-pair($item, $is-last); }
+        @else { $item: beautify($item); }
+        $result: $result + $item + if($is-last, '', $separator);
+      }
+    }
+    $element: '(#{$result})';
+  }
+
+  @return $element;
+}
+
+// We need a separate function because type($pair) is 'list' yet they should not be shown as lists
+@function beautify-map-pair($pair, $is-last) {
+  $key: beautify(nth($pair, 1));
+  $value: beautify(nth($pair, 2));
+  $comma: if($is-last, '', ',');
+  @return '#{$key}: #{$value}#{$comma}';
+}
+
+// Create a single-element, space-separated list
+@function l($a) { @return join($a, (), space); }

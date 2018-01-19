@@ -1,0 +1,15 @@
+@import 'index';
+
+@function add($a, $b) { @return $a + $b; }
+
+@debug function(add);
+@debug in(1, 2) + out(3);
+@debug in(45px, 0.5px) + out(45.5px);
+@debug in('a', 'b') + out('ab');
+
+$list: (1 2 3 4);
+$otherlist: (1, 2, 'surprise', 4, 5);
+
+@debug info($list);
+@debug compare($list, $otherlist);
+@debug compare(1px, 1);

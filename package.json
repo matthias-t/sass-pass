@@ -1,0 +1,22 @@
+{
+  "name": "sass-pass",
+  "version": "0.1.0",
+  "description": "5KB Sass unit-testing with insightful logs and debugging utilities",
+  "main": "index.scss",
+  "keywords": [
+    "sass",
+    "test",
+    "unit-tests",
+    "debug",
+    "pure-scss",
+    "simple",
+    "lightweight",
+    "zero-dependency"
+  ],
+  "author": "Matthias Totschnig",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0"
+  }
+}

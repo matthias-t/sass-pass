@@ -1,0 +1,41 @@
+@import 'debug';
+@import 'util';
+
+$function: null;
+$result: null;
+
+
+@function function($name) {
+  @if not function-exists($name) { @error 'function #{$name} not found'; }
+  $function: $name !global;
+  @debug '';
+  @return to-upper-case($name);
+}
+
+@function assert($description) {
+  $function: null !global;
+  @debug '';
+  @return to-upper-case($description);
+}
+
+
+@function in($args...) {
+  $isAssert: $function == null;
+
+  @if $isAssert { $result: nth($args, 1) !global; }
+  @else { $result: call($function, $args...) !global; }
+
+  $arg-str: beautify($args);
+  $result-str: beautify($result);
+
+  @if $isAssert { @return 'Got #{$result-str} '; }
+  @else { @return '#{$function}#{$arg-str}  =>  #{$result-str} '; }
+}
+
+@function out($expected) {
+  $success: equals($result, $expected);
+  @if not $success { @warn('TEST FAILED, see below'); }
+
+  $expected: if($success, '', ' ' + beautify($expected));
+  @return '(expected#{$expected})';
+}

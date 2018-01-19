@@ -1,0 +1,52 @@
+$line: '------------------------------------';
+
+@function info($item, $title: 'debug') {
+  $stats: stats($item);
+  
+  @debug '';
+  @debug $line;
+  @debug to-upper-case($title);
+  @each $stat in $stats { @debug '#{nth($stat, 1)} #{nth($stat, 2)}'; }
+  @debug $line;
+  @return '';
+}
+
+@function compare($a, $b) {
+  @debug '';
+  @debug $line;
+  @debug 'COMPARE';
+  @debug 'Equal: ';
+  @debug ' - sass:        #{$a == $b}';
+  @debug ' - test-sass:   #{equals($a, $b)}';
+  @debug $line;
+
+  $stats-a: stats($a);
+  $stats-b: stats($b);
+  @for $i from 1 through length($stats-a) {
+    $item-a: nth($stats-a, $i);
+    $item-b: nth($stats-b, $i);
+    $equal: equals('#{nth($item-a, 2)}', '#{nth($item-b, 2)}');
+    $str: '#{nth($item-a, 1)} #{nth($item-a, 2)}';
+    @if not $equal { $str: $str + '  -VS-   #{nth($item-b, 2)}'; }
+    @debug $str;
+  }
+  @debug $line;
+  @return '';
+}
+
+
+@function stats($item) {
+  $map: (
+    'Type:          ': type-of($item),
+    'Representation:': '',
+    ' - sass:       ': $item,
+    ' - test-sass:  ': beautify($item),
+  );
+  @if type-of($item) == 'list' {
+    $map: map-merge($map, (
+      'Length:        ': length($item),
+      'List-separator:': list-separator($item),
+    ));
+  }
+  @return $map;
+}
