@@ -50,3 +50,5 @@
 
 // Create a single-element, space-separated list
 @function l($a) { @return join($a, (), space); }
+
+$empty-map: map-remove((1: 0), 1);

@@ -6,10 +6,16 @@
 @debug in(1, 2) + out(3);
 @debug in(45px, 0.5px) + out(45.5px);
 @debug in('a', 'b') + out('ab');
+@debug in(1, 1) + out(3);
+
+@debug assert('divisions');
+@debug in(1 / 2) + out(0.5);
+@debug in(3.5 / 2) + out(1.75);
 
 $list: (1 2 3 4);
-$otherlist: (1, 2, 'surprise', 4, 5);
+$otherlist: (1, 2, 3, 'a', 5);
 
 @debug info($list);
 @debug compare($list, $otherlist);
 @debug compare(1px, 1);
+@debug info($empty-map);

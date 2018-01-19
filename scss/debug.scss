@@ -17,7 +17,7 @@ $line: '------------------------------------';
   @debug 'COMPARE';
   @debug 'Equal: ';
   @debug ' - sass:        #{$a == $b}';
-  @debug ' - test-sass:   #{equals($a, $b)}';
+  @debug ' - sass-pass:   #{equals($a, $b)}';
   @debug $line;
 
   $stats-a: stats($a);
@@ -40,7 +40,7 @@ $line: '------------------------------------';
     'Type:          ': type-of($item),
     'Representation:': '',
     ' - sass:       ': $item,
-    ' - test-sass:  ': beautify($item),
+    ' - sass-pass:  ': beautify($item),
   );
   @if type-of($item) == 'list' {
     $map: map-merge($map, (
