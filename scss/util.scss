@@ -1,4 +1,4 @@
-@function equals($a, $b) {
+@function __equals($a, $b) {
   $equals: $a == $b;
 
   // Necessary because 5 == 5% is true
@@ -15,7 +15,7 @@
 // @author Matthias Totschnig
 // @param {Any} $list — a list of elements
 // @return {String} — a beautified representation of the elements
-@function beautify($element) {
+@function __beautify($element) {
   @if $element == null { @return 'null'; }
 
   $type: type-of($element);
@@ -29,8 +29,8 @@
       @for $i from 1 through length($element) {
         $item: nth($element, $i);
         $is-last: $i == length($element);
-        @if $type == 'map' { $item: beautify-map-pair($item, $is-last); }
-        @else { $item: beautify($item); }
+        @if $type == 'map' { $item: __beautify-map-pair($item, $is-last); }
+        @else { $item: __beautify($item); }
         $result: $result + $item + if($is-last, '', $separator);
       }
     }
@@ -41,9 +41,9 @@
 }
 
 // We need a separate function because type($pair) is 'list' yet they should not be shown as lists
-@function beautify-map-pair($pair, $is-last) {
-  $key: beautify(nth($pair, 1));
-  $value: beautify(nth($pair, 2));
+@function __beautify-map-pair($pair, $is-last) {
+  $key: __beautify(nth($pair, 1));
+  $value: __beautify(nth($pair, 2));
   $comma: if($is-last, '', ',');
   @return '#{$key}: #{$value}#{$comma}';
 }

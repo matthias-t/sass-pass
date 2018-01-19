@@ -1,41 +1,39 @@
 @import 'debug';
 @import 'util';
 
-$function: null;
-$result: null;
-
+$__function: null;
+$__result: null;
 
 @function function($name) {
   @if not function-exists($name) { @error 'function #{$name} not found'; }
-  $function: $name !global;
+  $__function: $name !global;
   @debug '';
   @return to-upper-case($name);
 }
 
 @function assert($description) {
-  $function: null !global;
+  $__function: null !global;
   @debug '';
   @return to-upper-case($description);
 }
 
-
 @function in($args...) {
-  $isAssert: $function == null;
+  $isAssert: $__function == null;
 
-  @if $isAssert { $result: nth($args, 1) !global; }
-  @else { $result: call($function, $args...) !global; }
+  @if $isAssert { $__result: nth($args, 1) !global; }
+  @else { $__result: call($__function, $args...) !global; }
 
-  $arg-str: beautify($args);
-  $result-str: beautify($result);
+  $arg-str: __beautify($args);
+  $result-str: __beautify($__result);
 
   @if $isAssert { @return 'Got #{$result-str} '; }
-  @else { @return '#{$function}#{$arg-str}  =>  #{$result-str} '; }
+  @else { @return '#{$__function}#{$arg-str}  =>  #{$result-str} '; }
 }
 
 @function out($expected) {
-  $success: equals($result, $expected);
+  $success: __equals($__result, $expected);
   @if not $success { @warn('TEST FAILED, see below'); }
 
-  $expected: if($success, '', ' ' + beautify($expected));
+  $expected: if($success, '', ' ' + __beautify($expected));
   @return '(expected#{$expected})';
 }

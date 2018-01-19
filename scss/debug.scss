@@ -1,7 +1,7 @@
 $line: '------------------------------------';
 
 @function info($item, $title: 'debug') {
-  $stats: stats($item);
+  $stats: __stats($item);
   
   @debug '';
   @debug $line;
@@ -17,15 +17,15 @@ $line: '------------------------------------';
   @debug 'COMPARE';
   @debug 'Equal: ';
   @debug ' - sass:        #{$a == $b}';
-  @debug ' - sass-pass:   #{equals($a, $b)}';
+  @debug ' - sass-pass:   #{__equals($a, $b)}';
   @debug $line;
 
-  $stats-a: stats($a);
-  $stats-b: stats($b);
+  $stats-a: __stats($a);
+  $stats-b: __stats($b);
   @for $i from 1 through length($stats-a) {
     $item-a: nth($stats-a, $i);
     $item-b: nth($stats-b, $i);
-    $equal: equals('#{nth($item-a, 2)}', '#{nth($item-b, 2)}');
+    $equal: __equals('#{nth($item-a, 2)}', '#{nth($item-b, 2)}');
     $str: '#{nth($item-a, 1)} #{nth($item-a, 2)}';
     @if not $equal { $str: $str + '  -VS-   #{nth($item-b, 2)}'; }
     @debug $str;
@@ -35,12 +35,12 @@ $line: '------------------------------------';
 }
 
 
-@function stats($item) {
+@function __stats($item) {
   $map: (
     'Type:          ': type-of($item),
     'Representation:': '',
     ' - sass:       ': $item,
-    ' - sass-pass:  ': beautify($item),
+    ' - sass-pass:  ': __beautify($item),
   );
   @if type-of($item) == 'list' {
     $map: map-merge($map, (
