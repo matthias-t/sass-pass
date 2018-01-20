@@ -1,14 +1,32 @@
 # sass-pass
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/matthias-t/sass-pass.svg?colorB=4dc71f)
+[![npm](https://img.shields.io/npm/v/sass-pass.svg)](https://www.npmjs.com/package/sass-pass)
+![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
 
-Simple Sass unit-tests:
+
+## Why? ![start with why](https://img.shields.io/badge/start%20with-why%3F-brightgreen.svg?style=flat)
+Sass has a lot of complexity and a there are lots of ways things can go wrong. When a function is not found, for example, Sass interprets it as a string.
+
+Unit testing asserts that everything is working as expected and lets you code freely and make changes without worrying about breaking things.
+
+Existing Sass unit testing is too heavy and has too many dependencies, because it alters the way Sass compiles with gems and modules instead of using of native scss.
+
+
+## What?
+Simple Sass unit tests:
 - lightweight (5KB)
 - pure scss :tada: _(yes, you read that correctly — no gem, no module, just 5KB of scss)_
+- no dependencies
 - great logs
 - debugging utilities
 
 > Note: _gulpfile.js is for development._
 
+
+## Install
+```bash
+$ npm install sass-pass
+```
 
 
 ## Usage
@@ -16,7 +34,7 @@ Simple Sass unit-tests:
 @function add($a, $b) { @return $a + $b; }
 ```
 ```scss
-@import 'sass-pass/index';
+@import 'node_modules/sass-pass/index';
 
 @debug function('add');
 @debug in(1, 2) + out(3);
@@ -32,8 +50,6 @@ add('a', 'b')  =>  'ab' (expected)
 WARNING: TEST FAILED, see below
 add(1, 1)  =>  2 (expected 3)
 ```
-> Note: _you can configure `sass-pass` to throw `@error`s instead of `@warn`ings_
-
 ```scss
 @debug summary();
 ```
@@ -54,8 +70,8 @@ Got 0.5 (expected)
 Got 1.75 (expected)
 ```
 
-## Utilities
 
+## Utilities
 ### `info`
 ```scss
 $list: (1 2 3 4);
