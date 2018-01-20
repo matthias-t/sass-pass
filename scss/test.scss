@@ -3,6 +3,8 @@
 
 $__function: null;
 $__result: null;
+$__passed: 0;
+$__total: 0;
 
 @function function($name) {
   @if not function-exists($name) { @error 'function #{$name} not found'; }
@@ -18,6 +20,7 @@ $__result: null;
 }
 
 @function in($args...) {
+  $__total: $__total + 1 !global;
   $isAssert: $__function == null;
 
   @if $isAssert { $__result: nth($args, 1) !global; }
@@ -32,8 +35,17 @@ $__result: null;
 
 @function out($expected) {
   $success: __equals($__result, $expected);
-  @if not $success { @warn('TEST FAILED, see below'); }
+
+  @if $success { $__passed: $__passed + 1 !global; }
+  @else { @warn('TEST FAILED, see below'); }
 
   $expected: if($success, '', ' ' + __beautify($expected));
   @return '(expected#{$expected})';
+}
+
+@function summary() {
+  @debug '';
+  @debug $__line;
+  @debug '=> TESTS PASSED: #{$__passed} / #{$__total}';
+  @return '';
 }

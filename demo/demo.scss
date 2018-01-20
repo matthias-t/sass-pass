@@ -13,9 +13,13 @@
 @debug in(3.5 / 2) + out(1.75);
 
 $list: (1 2 3 4);
-$otherlist: (1, 2, 3, 'a', 5);
 
 @debug info($list);
+@debug info($empty-map);
+
+$otherlist: (1, 2, 3, 'a', 5);
+
 @debug compare($list, $otherlist);
 @debug compare(1px, 1);
-@debug info($empty-map);
+
+@debug summary();

@@ -34,6 +34,14 @@ add(1, 1)  =>  2 (expected 3)
 ```
 > Note: _you can configure `sass-pass` to throw `@error`s instead of `@warn`ings_
 
+```scss
+@debug summary();
+```
+```
+------------------------------------
+=> TESTS PASSED: 3 / 4
+```
+
 You can also test non-function stuff, but you'll have to give up the pretty logs _(that is, you'll probably have to look at the code to know what test failed)_
 ```scss
 @debug assert('divisions');
@@ -45,7 +53,6 @@ DIVISIONS
 Got 0.5 (expected)
 Got 1.75 (expected)
 ```
-
 
 ## Utilities
 

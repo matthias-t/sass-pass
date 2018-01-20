@@ -1,24 +1,24 @@
-$line: '------------------------------------';
+$__line: '------------------------------------';
 
 @function info($item, $title: 'debug') {
   $stats: __stats($item);
   
   @debug '';
-  @debug $line;
+  @debug $__line;
   @debug to-upper-case($title);
   @each $stat in $stats { @debug '#{nth($stat, 1)} #{nth($stat, 2)}'; }
-  @debug $line;
+  @debug $__line;
   @return '';
 }
 
 @function compare($a, $b) {
   @debug '';
-  @debug $line;
+  @debug $__line;
   @debug 'COMPARE';
   @debug 'Equal: ';
   @debug ' - sass:        #{$a == $b}';
   @debug ' - sass-pass:   #{__equals($a, $b)}';
-  @debug $line;
+  @debug $__line;
 
   $stats-a: __stats($a);
   $stats-b: __stats($b);
@@ -30,7 +30,7 @@ $line: '------------------------------------';
     @if not $equal { $str: $str + '  -VS-   #{nth($item-b, 2)}'; }
     @debug $str;
   }
-  @debug $line;
+  @debug $__line;
   @return '';
 }
 
