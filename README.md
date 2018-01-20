@@ -1,4 +1,5 @@
 # sass-pass
+![Size](https://github-size-badge.herokuapp.com/matthias-t/sass-pass.svg)
 
 Simple Sass unit-tests:
 - lightweight (5KB)
