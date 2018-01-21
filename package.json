@@ -1,6 +1,6 @@
 {
   "name": "sass-pass",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "5KB pure-scss unit-testing with insightful logs and debugging utilities",
   "main": "index.scss",
   "keywords": [
