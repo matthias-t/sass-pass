@@ -13,7 +13,7 @@
     "lightweight",
     "zero-dependency"
   ],
-  "license": "GPL-3.0",
+  "license": "MIT",
   "directories": {
     "lib": "./scss/",
     "doc": "./README.md",

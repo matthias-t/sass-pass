@@ -25,7 +25,7 @@ Simple Sass unit tests:
 
 ## Install
 ```bash
-$ npm install sass-pass
+npm install sass-pass --save-dev
 ```
 
 
